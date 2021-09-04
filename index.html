@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+        href="https://raw.githubusercontent.com/JohnBlazek/codepen-resources/master/3d-carousel/css/stylesheet.css">
+    <title>360 3D Carousel</title>
+</head>
+
+<style>
+    body {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        min-height: 1000px;
+        overflow: hidden;
+        background-color: #1a948d;
+    }
+
+    #fps {
+        margin-top: 5px;
+        margin-left: 35px;
+    }
+    /* hardware accelatator class */
+    .trans3d {
+        -webkit-transform-style: preserve-3d;
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform-style: preserve-3d;
+        -ms-transform: translate3d(0, 0, 0);
+        transform-style: preserve-3d;
+        transform: translate3d(0, 0, 0);
+    }
+
+    #contentContainer {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 966px;
+        height: 192px;
+        transform: translate(-50%, -100%);
+    }
+
+    #carouselContainer {
+        position: absolute;
+        margin-left: -500px;
+        margin-top: -500px;
+        left: 50%;
+        top: 50%;
+        width: 1000px;
+        height: 1000px;
+    }
+
+    .carouselItem {
+        width: 320px;
+        height: 130px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -160px;
+        margin-top: -90px;
+        visibility: hidden;
+    }
+
+    .carouselItemInner {
+        width: 443px;
+        height: 400px;
+        position: absolute;
+        background-color: rgba(255, 255, 255, .75);
+        border: none;
+        border-radius: 10px;
+        font-size: 72px;
+        left: 50%;
+        top: 50%;
+        margin-left: -235px;
+        margin-top: -100px;
+        padding-top: 0px;
+        overflow: hidden;
+    }
+
+    .carouselItemInner .thumbnail {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        transition: 0.5s;
+    }
+
+    .carouselItemInner .thumbnail img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+
+
+    }
+
+    .card-details {
+        position: absolute;
+        height: 100%;
+        width: 93%;
+        top: -5%;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        flex-direction: column;
+        background-color: #00000046;
+        color: #fff;
+        padding: 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .card-details div {
+        display: flex;
+        align-items: baseline;
+        flex-direction: column;
+        margin-bottom: 0;
+        transition: 0.5s all ease-in-out;
+    }
+
+    .card-details div span:nth-child(1) {
+        font-size: 40px;
+        font-weight: 600;
+        transition: 0.5s all ease-in-out;
+    }
+
+    .card-details div span:nth-child(2) {
+        font-size: 20px;
+        transition: 0.8s all ease-in-out;
+    }
+
+    .card-details button {
+        padding: 8px 16px;
+        border-radius: 22px;
+        margin-top: 20px;
+        transition: 0.6s all ease-in-out;
+        transform: translateY(75px);
+    }
+
+    .card-details button a {
+        color: #217ce6;
+        text-decoration: none;
+    }
+
+    button.open {
+        transform: translateY(-15px);
+    }
+
+    div.open {
+        margin-bottom: 0;
+    }
+</style>
+
+<body>
+        <div id="contentContainer" class="trans3d">
+            <section id="carouselContainer" class="trans3d">
+                <figure id="item1" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d cars-item">
+                        <div class="thumbnail">
+                            <img src="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fmarkhughes%2Ffiles%2F2019%2F04%2FAVENGERS-ENDGAME-poster-2-1200x1823.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details1 ">
+                            <div class="">
+                                <span>Avengers Endgame</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item2" class="carouselItem trans3d ">
+                    <div class="carouselItemInner trans3d ">
+                        <div class="thumbnail">
+                            <img src="https://m.media-amazon.com/images/I/71s4cikZfeL._AC_SY679_.jpg" alt="">
+                        </div>
+                        <div class="card-details card-details2">
+                            <div>
+                                <span>Venom</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item3" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/b0766b54109885.594d410fa9c18.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details3">
+                            <div>
+                                <span>SpiderMan Homecoming</span>
+                            </div>
+                            <button class=""><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item4" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://lumiere-a.akamaihd.net/v1/images/p_blackpanther_19754_4ac13f07.jpeg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details4">
+                            <div>
+                                <span>Black Panther</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item5" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/4627fe72571409.5bebed617acbb.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details5">
+                            <div>
+                                <span>Iron Man</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item6" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://cdn.europosters.eu/image/750/posters/captain-marvel-epic-i71851.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details6">
+                            <div>
+                                <span>Captain Marvel</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item7" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://m.media-amazon.com/images/M/MV5BMTYzOTc2NzU3N15BMl5BanBnXkFtZTcwNjY3MDE3NQ@@._V1_.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details7">
+                            <div>
+                                <span>Captain America</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item8" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://i.pinimg.com/originals/c3/da/22/c3da222db2940a3c07c53b6f8bd83558.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details8">
+                            <div>
+                                <span>Doctor Strange</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item9" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="http://images6.fanpop.com/image/photos/43900000/Shang-Chi-and-the-Legend-of-the-Ten-Rings-Promotional-Poster-shang-chi-and-the-legend-of-the-ten-rings-43999402-1024-1280.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details">
+                            <div>
+                                <span>Shang Chi</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item10" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://m.media-amazon.com/images/M/MV5BMjM2NTQ5Mzc2M15BMl5BanBnXkFtZTgwNTcxMDI2NTE@._V1_FMjpg_UX1000_.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details9">
+                            <div>
+                                <span>Ant-Man</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item11" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://m.media-amazon.com/images/M/MV5BNjRmNDI5MjMtMmFhZi00YzcwLWI4ZGItMGI2MjI0N2Q3YmIwXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-details card-details10">
+                            <div>
+                                <span>Black Widow</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+                <figure id="item12" class="carouselItem trans3d">
+                    <div class="carouselItemInner trans3d">
+                        <div class="thumbnail">
+                            <img src="https://m.media-amazon.com/images/I/61ikONHVOAL._AC_SY679_.jpg" alt="">
+                        </div>
+                        <div class="card-details card-details11">
+                            <div>
+                                <span>Hulk</span>
+                            </div>
+                            <button class="button"><a href="">More Info</a></button>
+                        </div>
+                    </div>
+                </figure>
+            </section>
+        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+    <script src="https://raw.githubusercontent.com/JohnBlazek/codepen-resources/master/3d-carousel/js/libs.min.js">
+    </script>
+    <script>
+        // set and cache variables
+        var w, container, carousel, item, radius, itemLength, rY, ticker, fps;
+        var mouseX = 0;
+        var mouseY = 0;
+        var mouseZ = 0;
+        var addX = 0;
+
+
+        // fps counter created by: https://gist.github.com/sharkbrainguy/1156092,
+        // no need to create my own :)
+        var fps_counter = {
+
+            tick: function () {
+                // this has to clone the array every tick so that
+                // separate instances won't share state 
+                this.times = this.times.concat(+new Date());
+                var seconds, times = this.times;
+
+                if (times.length > this.span + 1) {
+                    times.shift(); // ditch the oldest time
+                    seconds = (times[times.length - 1] - times[0]) / 1000;
+                    return Math.round(this.span / seconds);
+                } else return null;
+            },
+
+            times: [],
+            span: 20
+        };
+        var counter = Object.create(fps_counter);
+
+
+
+        $(document).ready(init)
+
+        function init() {
+            w = $(window);
+            container = $('#contentContainer');
+            carousel = $('#carouselContainer');
+            item = $('.carouselItem');
+            itemLength = $('.carouselItem').length;
+            fps = $('#fps');
+            rY = 360 / itemLength;
+            radius = Math.round((250) / Math.tan(Math.PI / itemLength));
+
+
+            mouseX = -(-(window.innerWidth * .5) + 10) * .0002;
+
+
+            // set container 3d props
+            TweenMax.set(container, {
+                perspective: '80rem'
+            })
+
+            // create carousel item props
+
+            for (var i = 0; i < itemLength; i++) {
+                var $item = item.eq(i);
+                var $block = $item.find('.carouselItemInner');
+
+                TweenMax.set($item, {
+                    rotationY: rY * i,
+                    z: radius,
+                    transformOrigin: "50% 50% " + -radius + "px"
+                });
+
+                animateIn($item, $block)
+            }
+
+            // set mouse x and y props and looper ticker
+            window.addEventListener("mousemove", onMouseMove, false);
+            ticker = setInterval(looper, 2000 / 60);
+        }
+
+        function animateIn($item, $block) {
+            var $nrX = 360 * getRandomInt(2);
+            var $nrY = 360 * getRandomInt(2);
+
+            var $nx = -(2000) + getRandomInt(4000)
+            var $ny = -(2000) + getRandomInt(4000)
+            var $nz = -4000 + getRandomInt(4000)
+
+            var $s = 1.5 + (getRandomInt(10) * .1)
+            var $d = 1 - (getRandomInt(8) * .1)
+
+            TweenMax.set($item, {
+                autoAlpha: 1,
+                delay: $d
+            })
+            TweenMax.set($block, {
+                z: $nz,
+                rotationY: 50,
+                rotationX: 50,
+                x: 500,
+                y: 500,
+                autoAlpha: 0
+            })
+            TweenMax.to($block, $s, {
+                delay: $d,
+                rotationY: 0,
+                rotationX: 0,
+                z: 0,
+                ease: Expo.easeInOut
+            })
+            TweenMax.to($block, $s - .5, {
+                delay: $d,
+                x: 0,
+                y: 0,
+                autoAlpha: 1,
+                ease: Expo.easeInOut
+            })
+        }
+
+        function onMouseMove(event) {
+            mouseZ = -(radius) - (Math.abs(-(window.innerHeight * .5) + event.pageY) - 10);
+        }
+
+        // loops and sets the carousel 3d properties
+        function looper() {
+            addX += mouseX
+            TweenMax.to(carousel, 1, {
+                rotationY: addX,
+                rotationX: mouseY,
+                ease: Quint.easeOut
+            })
+            TweenMax.set(carousel, {
+                z: -1000
+            })
+        }
+
+        function getRandomInt($n) {
+            return Math.floor((Math.random() * $n) + 1);
+        }
+
+        $('#contentContainer').on('mousemove', (event) => {
+            mouseX = -(-(window.innerWidth * .5) + event.pageX) * .0025;
+        })
+        $('#contentContainer').on('mouseleave', (event) => {
+            mouseX = -(-(window.innerWidth * .5) + event.pageX) * .0005;
+        })
+
+        // card details hover
+        $(".card-details").hover(function () {
+                $(this).find('div').addClass('open')
+                $(this).find('button').addClass('open')
+            },
+            function () {
+                $('button').removeClass('open')
+                $(".card-details div").removeClass('open')
+            }
+        )
+    </script>
+
+
+
+</body>
+
+</html>
